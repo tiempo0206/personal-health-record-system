@@ -1,0 +1,235 @@
+/* ==========================================================================
+ * 文件：ui/styles/theme.css
+ * 层：表现层（样式）
+ * 职责：设计令牌（Design Token）—— 全站唯一的颜色、圆角、阴影、间距、字号来源。
+ *      浅色为默认值，深色通过 <html data-theme="dark"> 覆盖；
+ *      另有"高对比度"与"大字号"两套无障碍覆盖，由「体验保障 → 偏好设置」控制。
+ * ========================================================================== */
+
+:root {
+  /* ---------- 品牌色 ---------- */
+  --primary:          #0e7490;
+  --primary-hover:    #0b5f75;
+  --primary-active:   #094d5f;
+  --primary-soft:     #e0f2f6;
+  --primary-border:   #a5d8e2;
+  --primary-contrast: #ffffff;
+
+  --accent:           #6d5bd0;
+  --accent-soft:      #ece9fa;
+
+  /* ---------- 语义色 ---------- */
+  --ok:        #15803d;  --ok-soft:     #dcfce7;  --ok-border:     #a7e0bd;
+  --warn:      #b45309;  --warn-soft:   #fef3c7;  --warn-border:   #f3d68a;
+  --danger:    #b91c1c;  --danger-soft: #fee2e2;  --danger-border: #f4b4b4;
+  --info:      #1d4ed8;  --info-soft:   #dbeafe;  --info-border:   #b3cdf7;
+  --muted:     #64748b;  --muted-soft:  #f1f5f9;  --muted-border:  #dbe3ec;
+
+  /* 图表调色板（序贯使用，保证色相区分度） */
+  --c1: #0e7490;
+  --c2: #e11d48;
+  --c3: #d97706;
+  --c4: #6d5bd0;
+  --c5: #15803d;
+  --c6: #0284c7;
+  --c7: #be185d;
+  --c8: #65a30d;
+
+  /* ---------- 中性色 ---------- */
+  --bg:         #f4f7fa;
+  --bg-grad:    radial-gradient(1200px 600px at 15% -10%, #e6f4f8 0%, transparent 60%),
+                radial-gradient(900px 500px at 100% 0%, #eef0fb 0%, transparent 55%);
+
+  /* ---------- 整页自定义背景（可选，默认关闭） ----------
+     之前这里会加载 ui/assets/background.gif。现在默认不显示外部背景图，
+     页面只保留上面那层渐变；如需自定义背景，再把 none 改成 url(...)。 */
+  --app-bg-image: none;
+  --surface:    #ffffff;
+  --surface-2:  #f7fafc;
+  --surface-3:  #eef3f8;
+  --border:     #e2e8f0;
+  --border-2:   #cfdae6;
+  --text:       #0f1c2e;
+  --text-2:     #48586e;
+  --text-3:     #8496ab;
+  --overlay:    rgba(15, 28, 46, 0.48);
+
+  /* ---------- 直接压在整页背景图上的文字描边 ----------
+     body 的 background.gif 会从内容区的留白里透出来，页面标题、页签这类
+     没有承托色的文字一压上去就糊了，所以给它们描一圈边。
+     两个要点：
+     ① 用 text-shadow 而不是 -webkit-text-stroke。后者压在字形**中线上**，
+        会把笔画吃掉一半 —— 中文横细竖粗，13px 下直接就断了；text-shadow
+        描在字形**外面**，笔画本身一点不变细。
+     ② 颜色取 --surface（卡片底色）而不是写死 #fff：在卡片里描边与底色同色、
+        看不出变化，只有露在背景图上时才显出来。浅色主题下 --surface 就是
+        纯白，深色主题下自动跟着变成深色，不会出现"浅字套白边"糊成一团。
+     ⚠️ 偏移量用 em 而不是 px：跟着字号缩放，26px 的页面标题自然比 13px 的
+        正文描得粗，用户把「界面字号」调大时也不用另调数值。 */
+  --text-halo-color: var(--surface);
+  --text-halo:
+     0.08em  0        0 var(--text-halo-color),
+    -0.08em  0        0 var(--text-halo-color),
+     0       0.08em   0 var(--text-halo-color),
+     0      -0.08em   0 var(--text-halo-color),
+     0.055em 0.055em  0 var(--text-halo-color),
+    -0.055em -0.055em 0 var(--text-halo-color),
+     0.055em -0.055em 0 var(--text-halo-color),
+    -0.055em 0.055em  0 var(--text-halo-color);
+
+  /* ---------- 圆角 ---------- */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --r-pill: 999px;
+
+  /* ---------- 阴影 ---------- */
+  --sh-xs: 0 1px 2px rgba(15, 28, 46, 0.05);
+  --sh-sm: 0 1px 3px rgba(15, 28, 46, 0.07), 0 1px 2px rgba(15, 28, 46, 0.04);
+  --sh-md: 0 4px 14px rgba(15, 28, 46, 0.08), 0 1px 3px rgba(15, 28, 46, 0.05);
+  --sh-lg: 0 14px 38px rgba(15, 28, 46, 0.14), 0 4px 12px rgba(15, 28, 46, 0.07);
+  --sh-focus: 0 0 0 3px rgba(14, 116, 144, 0.22);
+
+  /* ---------- 间距 ---------- */
+  --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+  --sp-5: 20px;  --sp-6: 24px;  --sp-8: 32px;  --sp-10: 40px;
+
+  /* ---------- 字号 ---------- */
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 14px;
+  --fs-lg: 16px;
+  --fs-xl: 20px;
+  --fs-2xl: 26px;
+  --fs-3xl: 34px;
+
+  /* ---------- 字体 ---------- */
+  --font: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Source Han Sans SC",
+          "Noto Sans CJK SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* ---------- 布局尺寸 ---------- */
+  --sidebar-w: 236px;
+  --topbar-h: 60px;
+  --content-max: 1240px;
+
+  /* ---------- 动效 ---------- */
+  --t-fast: 120ms ease;
+  --t-md: 200ms ease;
+  --t-slow: 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  color-scheme: light;
+}
+
+/* ==========================================================================
+ * 深色主题
+ * ========================================================================== */
+:root[data-theme="dark"] {
+  --primary:          #38b6d1;
+  --primary-hover:    #55c6de;
+  --primary-active:   #7ad4e7;
+  --primary-soft:     #10333d;
+  --primary-border:   #1e5a6b;
+  --primary-contrast: #04222a;
+
+  --accent:           #a394f0;
+  --accent-soft:      #241f3d;
+
+  --ok:        #4ade80;  --ok-soft:     #10291b;  --ok-border:     #1e5233;
+  --warn:      #fbbf24;  --warn-soft:   #30240a;  --warn-border:   #5c4611;
+  --danger:    #f87171;  --danger-soft: #341414;  --danger-border: #642020;
+  --info:      #7dabf8;  --info-soft:   #131f38;  --info-border:   #24406e;
+  --muted:     #94a3b8;  --muted-soft:  #1a2433;  --muted-border:  #2b3a4f;
+
+  --c1: #38b6d1;
+  --c2: #fb7185;
+  --c3: #fbbf24;
+  --c4: #a394f0;
+  --c5: #4ade80;
+  --c6: #60a5fa;
+  --c7: #f472b6;
+  --c8: #a3e635;
+
+  --bg:         #0a1119;
+  --bg-grad:    radial-gradient(1200px 600px at 15% -10%, #0d2230 0%, transparent 60%),
+                radial-gradient(900px 500px at 100% 0%, #141a30 0%, transparent 55%);
+  --surface:    #111b26;
+  --surface-2:  #16222f;
+  --surface-3:  #1c2a39;
+  --border:     #22303f;
+  --border-2:   #2e3f52;
+  --text:       #e8eef6;
+  --text-2:     #a3b4c8;
+  --text-3:     #6d8098;
+  --overlay:    rgba(0, 0, 0, 0.62);
+
+  --sh-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --sh-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --sh-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --sh-lg: 0 16px 40px rgba(0, 0, 0, 0.62);
+  --sh-focus: 0 0 0 3px rgba(56, 182, 209, 0.28);
+
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+ * 无障碍：大字号
+ * ========================================================================== */
+:root[data-fontsize="large"] {
+  --fs-xs: 13px;  --fs-sm: 15px;  --fs-md: 16px;  --fs-lg: 18px;
+  --fs-xl: 23px;  --fs-2xl: 30px; --fs-3xl: 38px;
+  --sidebar-w: 260px;
+  --topbar-h: 66px;
+}
+
+:root[data-fontsize="xlarge"] {
+  --fs-xs: 15px;  --fs-sm: 17px;  --fs-md: 18px;  --fs-lg: 21px;
+  --fs-xl: 26px;  --fs-2xl: 34px; --fs-3xl: 44px;
+  --sidebar-w: 288px;
+  --topbar-h: 74px;
+}
+
+/* ==========================================================================
+ * 无障碍：高对比度
+ * ========================================================================== */
+:root[data-contrast="high"] {
+  --border: #94a3b8;
+  --border-2: #64748b;
+  --text-2: #1e293b;
+  --text-3: #475569;
+  --primary: #0369a1;
+  --sh-xs: none; --sh-sm: none; --sh-md: none;
+}
+
+:root[data-theme="dark"][data-contrast="high"] {
+  --border: #7c8fa6;
+  --border-2: #9db0c6;
+  --text-2: #dce6f2;
+  --text-3: #b6c4d6;
+  --primary: #6fd3ea;
+}
+
+/* ==========================================================================
+ * 无障碍：减少动效
+ * ========================================================================== */
+:root[data-motion="reduced"] *,
+:root[data-motion="reduced"] *::before,
+:root[data-motion="reduced"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* 整页背景图（ui/assets/background.gif）在"减少动效"下整层隐藏。
+   CSS 没有任何办法暂停一张 GIF —— 上面那条把 animation-duration 压成 0
+   的规则对它无效 —— 所以只能不显示。系统级偏好同理。 */
+:root[data-motion="reduced"] { --app-bg-image: none; }
+@media (prefers-reduced-motion: reduce) { :root { --app-bg-image: none; } }

@@ -1,0 +1,23 @@
+Good morning, teachers and fellow students.
+
+Hello everyone. Today I will walk you through each feature of the system, one by one.
+
+The first feature is Account Security. It handles sign-up, sign-in, password management, and two-step verification. Users can choose SMS code or face recognition as the extra login check. If someone enters the wrong password too many times, the account locks for a while. Doctors enter through a separate access-code gate, so patient accounts stay independent.
+
+The second feature is Health Records. This is the heart of the system. It supports fourteen record types, including basic profile, allergies, medications, test results, imaging reports, and vital signs. Every record can have tags and a full version history. Even if a record is deleted, it can be brought back from a saved snapshot.
+
+The third feature is Smart Search. It lets users combine keyword, record type, body system, date range, and source filters to find information quickly. It also keeps a search history, so users can return to past lookups with one click.
+
+The fourth feature is Health Insights. It reads the stored data, spots trends, flags unusual changes, and produces risk alerts and a weekly health summary. This helps users see how their body changes over time instead of relying on single readings.
+
+The fifth feature is Doctor Access. Patients can create a temporary access code for a doctor, limited by date range and record type. The code stops working when it expires, and patients can cancel it anytime. If a doctor tries to view records outside the allowed scope, the system blocks the request.
+
+The sixth feature is Activity Log. It records important actions such as sign-in, data export, edits, and access grants. Users can filter these records by time and action type, making it easy to see who did what and when.
+
+The seventh feature is Community. It groups discussions by health topic. Users can post, reply, and share experiences. The system checks keywords and handles reports, so the community stays helpful and orderly.
+
+The eighth feature is Mental Health Check. It currently offers the PHQ-9 depression screening. After the user finishes, the score is calculated right away and a report is created. If the result shows high risk, the system shows a crisis help notice.
+
+The ninth feature is Settings & Support. It includes theme and font settings, accessibility options, data backup and restore, data health checks, and a help center. These tools keep the system easy to use and maintain over time.
+
+Those are the nine main features of the system. Thank you.

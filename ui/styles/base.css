@@ -1,0 +1,217 @@
+/* ==========================================================================
+ * 文件：ui/styles/base.css
+ * 层：表现层（样式）
+ * 职责：样式重置、全局排版、通用工具类（布局/间距/文字/可见性）。
+ * ========================================================================== */
+
+/* ---------------------------- 1. 重置 ---------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font);
+  font-size: var(--fs-md);
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  /* 自定义整页背景（可选）叠在渐变之上；图不存在时这一层为空，只剩渐变。
+     侧栏 / 顶栏 / 卡片都有不透明的表面色，所以背景图只在内容区的留白处可见。 */
+  background-image: var(--app-bg-image), var(--bg-grad);
+  background-size: cover, auto;
+  background-position: center, center;
+  background-repeat: no-repeat, repeat;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 650; line-height: 1.35; }
+h1 { font-size: var(--fs-3xl); }
+h2 { font-size: var(--fs-2xl); }
+h3 { font-size: var(--fs-xl); }
+h4 { font-size: var(--fs-lg); }
+p  { margin: 0 0 var(--sp-3); }
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+img, svg { max-width: 100%; }
+
+ul, ol { margin: 0 0 var(--sp-3); padding-left: 1.35em; }
+li { margin-bottom: var(--sp-1); }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: var(--sp-5) 0;
+}
+
+code, kbd, pre {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+code {
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xs);
+  padding: 1px 5px;
+}
+pre {
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  overflow-x: auto;
+  margin: 0 0 var(--sp-3);
+}
+pre code { background: none; border: 0; padding: 0; }
+
+mark {
+  background: var(--warn-soft);
+  color: var(--warn);
+  border-radius: 3px;
+  padding: 0 2px;
+  font-weight: 600;
+}
+
+::selection { background: var(--primary-soft); color: var(--text); }
+
+/* ---------------------------- 2. 滚动条 ---------------------------- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border-2);
+  border-radius: var(--r-pill);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); background-clip: content-box; }
+
+/* ---------------------------- 3. 焦点可见性 ---------------------------- */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--r-xs);
+}
+
+/* 仅供屏幕阅读器 */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 跳转到主内容（键盘无障碍） */
+.skip-link {
+  position: absolute;
+  top: -60px; left: var(--sp-4);
+  z-index: 999;
+  background: var(--primary);
+  color: var(--primary-contrast);
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  transition: top var(--t-fast);
+}
+.skip-link:focus { top: 0; text-decoration: none; }
+
+/* ---------------------------- 4. 工具类 ---------------------------- */
+
+/* 布局 */
+.row      { display: flex; align-items: center; }
+.row-top  { display: flex; align-items: flex-start; }
+.between  { justify-content: space-between; }
+.center   { justify-content: center; }
+.end      { justify-content: flex-end; }
+.wrap     { flex-wrap: wrap; }
+.col      { display: flex; flex-direction: column; }
+.grow     { flex: 1 1 auto; min-width: 0; }
+.none     { flex: none; }
+.grid     { display: grid; gap: var(--sp-4); }
+.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.auto-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+/* 间距 */
+.mt1 { margin-top: var(--sp-1); } .mt2 { margin-top: var(--sp-2); }
+.mt3 { margin-top: var(--sp-3); } .mt4 { margin-top: var(--sp-4); }
+.mt5 { margin-top: var(--sp-5); } .mt6 { margin-top: var(--sp-6); }
+.mb1 { margin-bottom: var(--sp-1); } .mb2 { margin-bottom: var(--sp-2); }
+.mb3 { margin-bottom: var(--sp-3); } .mb4 { margin-bottom: var(--sp-4); }
+.mb5 { margin-bottom: var(--sp-5); } .mb6 { margin-bottom: var(--sp-6); }
+.ml2 { margin-left: var(--sp-2); } .ml3 { margin-left: var(--sp-3); } .ml4 { margin-left: var(--sp-4); }
+.mr2 { margin-right: var(--sp-2); } .mr3 { margin-right: var(--sp-3); }
+.p4 { padding: var(--sp-4); } .p5 { padding: var(--sp-5); } .p6 { padding: var(--sp-6); }
+.gap1 { gap: var(--sp-1); } .gap2 { gap: var(--sp-2); } .gap3 { gap: var(--sp-3); }
+.gap4 { gap: var(--sp-4); } .gap5 { gap: var(--sp-5); } .gap6 { gap: var(--sp-6); }
+
+/* 文字 */
+.t-xs  { font-size: var(--fs-xs); }
+.t-sm  { font-size: var(--fs-sm); }
+.t-md  { font-size: var(--fs-md); }
+.t-lg  { font-size: var(--fs-lg); }
+.t-xl  { font-size: var(--fs-xl); }
+.t-2xl { font-size: var(--fs-2xl); }
+.t-3xl { font-size: var(--fs-3xl); }
+.bold   { font-weight: 650; }
+.semibold { font-weight: 600; }
+.mono   { font-family: var(--font-mono); }
+.muted  { color: var(--text-2); }
+.dim    { color: var(--text-3); }
+.ok     { color: var(--ok); }
+.warn   { color: var(--warn); }
+.danger { color: var(--danger); }
+.nowrap { white-space: nowrap; }
+.pre-wrap { white-space: pre-wrap; word-break: break-word; }
+.break  { word-break: break-all; }
+.ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.clamp2 {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.clamp3 {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tc { text-align: center; } .tr { text-align: right; } .tl { text-align: left; }
+.upper { text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* 直接压在整页背景图（ui/assets/background.gif）上的文字：描一圈边免得糊。
+   令牌与原理见 theme.css 的 --text-halo。需要临时关掉时用 .halo-off。 */
+.halo     { text-shadow: var(--text-halo); }
+.halo-off { text-shadow: none; }
+
+/* 其它 */
+.hidden { display: none !important; }
+.pointer { cursor: pointer; }
+.rel { position: relative; }
+.full { width: 100%; }
+.scroll-y { overflow-y: auto; }
+.divider { height: 1px; background: var(--border); margin: var(--sp-4) 0; }
+.vdivider { width: 1px; align-self: stretch; background: var(--border); margin: 0 var(--sp-3); }
+
+/* ---------------------------- 5. 响应式断点 ---------------------------- */
+@media (max-width: 1080px) {
+  .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .g2, .g3, .g4 { grid-template-columns: minmax(0, 1fr); }
+  .hide-sm { display: none !important; }
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="Personal Health Record System: one place for a clearer health story">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#083a50"/><stop offset=".55" stop-color="#0a6e83"/><stop offset="1" stop-color="#2a9db0"/></linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff" stop-opacity=".98"/><stop offset="1" stop-color="#e8f7fa" stop-opacity=".93"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#002934" flood-opacity=".26"/></filter>
+  </defs>
+  <rect width="1200" height="300" rx="24" fill="url(#bg)"/>
+  <circle cx="1050" cy="70" r="170" fill="#ffffff" opacity=".045"/>
+  <circle cx="1130" cy="265" r="155" fill="#ffffff" opacity=".045"/>
+  <path d="M0 244 C180 186 270 301 458 230 S776 173 960 225 S1117 249 1200 205" fill="none" stroke="#a5ebee" stroke-width="2" opacity=".14"/>
+  <g transform="translate(48 48)">
+    <rect width="58" height="58" rx="17" fill="#dff9f5" opacity=".96"/>
+    <path d="M29 13v31M14 28h30" stroke="#087a88" stroke-width="7" stroke-linecap="round"/>
+    <text x="0" y="108" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="47" font-weight="700" fill="#ffffff">Personal Health Record</text>
+    <text x="2" y="145" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="20" fill="#d7f1f4">One place for a clearer health story.</text>
+    <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="14" font-weight="600">
+      <rect x="0" y="170" width="108" height="34" rx="17" fill="#ffffff" opacity=".17"/><text x="17" y="192" fill="#ffffff">LOCAL FIRST</text>
+      <rect x="120" y="170" width="104" height="34" rx="17" fill="#ffffff" opacity=".17"/><text x="140" y="192" fill="#ffffff">BILINGUAL</text>
+      <rect x="236" y="170" width="124" height="34" rx="17" fill="#ffffff" opacity=".17"/><text x="256" y="192" fill="#ffffff">MODULAR UI</text>
+    </g>
+  </g>
+  <g filter="url(#shadow)" transform="translate(822 46)">
+    <rect width="320" height="210" rx="22" fill="url(#card)"/>
+    <rect x="22" y="24" width="276" height="40" rx="11" fill="#e3f3f5"/>
+    <circle cx="44" cy="44" r="10" fill="#17a1a4"/>
+    <rect x="65" y="35" width="146" height="7" rx="3.5" fill="#2e6674" opacity=".75"/>
+    <rect x="65" y="47" width="91" height="5" rx="2.5" fill="#76a5af"/>
+    <rect x="22" y="79" width="85" height="49" rx="10" fill="#eef8f9"/>
+    <rect x="118" y="79" width="85" height="49" rx="10" fill="#eef8f9"/>
+    <rect x="214" y="79" width="84" height="49" rx="10" fill="#eef8f9"/>
+    <text x="33" y="108" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#087a88">14</text>
+    <text x="129" y="108" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#087a88">PDF</text>
+    <text x="225" y="108" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#087a88">EN</text>
+    <path d="M25 177h270" stroke="#d7e8ec" stroke-width="1"/>
+    <path d="M31 174l30-21 33 9 34-28 29 10 29-14 29 12 31-18 27 9 27-20" fill="none" stroke="#17a1a4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M31 174l30-21 33 9 34-28 29 10 29-14 29 12 31-18 27 9 27-20v57H31z" fill="#17a1a4" opacity=".10"/>
+  </g>
+</svg>

@@ -1,0 +1,608 @@
+/* ==========================================================================
+ * 文件：ui/styles/layout.css
+ * 层：表现层（样式）
+ * 职责：应用外壳布局 —— 登录页、侧边导航、顶栏、内容区、响应式折叠。
+ * 对应脚本：ui/shell.js
+ * ========================================================================== */
+
+/* ==========================================================================
+ * 一、根容器
+ * ========================================================================== */
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 加载中的启动遮罩 */
+#boot-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  background: var(--bg);
+  background-image: var(--bg-grad);
+  z-index: 9000;
+  transition: opacity var(--t-slow), visibility var(--t-slow);
+}
+#boot-screen.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+.boot-logo {
+  width: 64px; height: 64px;
+  border-radius: var(--r-lg);
+  background: var(--primary);
+  color: var(--primary-contrast);
+  display: grid; place-items: center;
+  font-size: 30px;
+  box-shadow: var(--sh-md);
+  animation: bootPulse 1.6s ease-in-out infinite;
+}
+@keyframes bootPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(0.94); opacity: 0.82; }
+}
+.boot-title { font-size: var(--fs-lg); font-weight: 650; }
+.boot-sub { color: var(--text-2); font-size: var(--fs-sm); }
+.boot-bar {
+  width: 200px; height: 4px;
+  background: var(--surface-3);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+.boot-bar > i {
+  display: block; height: 100%; width: 40%;
+  background: var(--primary);
+  border-radius: var(--r-pill);
+  animation: bootSlide 1.2s ease-in-out infinite;
+}
+@keyframes bootSlide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+/* ==========================================================================
+ * 二、登录 / 注册页
+ * ========================================================================== */
+.auth-screen {
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  overflow: hidden;
+}
+
+/* 左侧品牌区 */
+.auth-brand {
+  position: relative;
+  padding: var(--sp-10);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #eaf6fa;
+  background: linear-gradient(150deg, #0b5f75 0%, #0e7490 46%, #1c8fa8 100%);
+  overflow: hidden;
+}
+.auth-brand::after {
+  content: "";
+  position: absolute;
+  width: 520px; height: 520px;
+  right: -180px; bottom: -220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, transparent 68%);
+}
+.auth-brand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(160deg, #000 10%, transparent 72%);
+  -webkit-mask-image: linear-gradient(160deg, #000 10%, transparent 72%);
+}
+.auth-brand > * { position: relative; z-index: 1; }
+.auth-brand .brand-mark {
+  display: flex; align-items: center; gap: var(--sp-3);
+  font-size: var(--fs-xl); font-weight: 700;
+}
+.auth-brand .brand-mark .logo {
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border-radius: var(--r-md);
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.28);
+  font-size: 24px;
+}
+.auth-brand h1 {
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.22;
+  margin-bottom: var(--sp-4);
+  letter-spacing: -0.01em;
+}
+.auth-brand .lead {
+  font-size: var(--fs-lg);
+  color: rgba(234, 246, 250, 0.86);
+  max-width: 30em;
+  margin-bottom: var(--sp-6);
+}
+.brand-points { display: grid; gap: var(--sp-3); list-style: none; padding: 0; margin: 0; }
+.brand-points li {
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  font-size: var(--fs-md);
+  color: rgba(234, 246, 250, 0.94);
+}
+.brand-points .dot {
+  flex: none;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: grid; place-items: center;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.auth-brand footer {
+  font-size: var(--fs-sm);
+  color: rgba(234, 246, 250, 0.6);
+  border-top: 1px solid rgba(255,255,255,0.16);
+  padding-top: var(--sp-4);
+}
+
+/* 右侧表单区 */
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-8) var(--sp-6);
+  overflow-y: auto;
+  background: var(--surface);
+}
+.auth-panel-inner { width: 100%; max-width: 420px; }
+.auth-language-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+.auth-language-label { color: var(--text-2); font-size: var(--fs-sm); }
+.auth-language-switch button { min-width: 74px; }
+.auth-card { width: 100%; max-width: 420px; }
+.auth-card > h2 { margin-bottom: var(--sp-1); }
+.auth-card > .sub { color: var(--text-2); margin-bottom: var(--sp-5); font-size: var(--fs-sm); }
+
+.auth-tabs {
+  display: flex; gap: var(--sp-1);
+  background: var(--surface-3);
+  border-radius: var(--r-md);
+  padding: var(--sp-1);
+  margin-bottom: var(--sp-5);
+}
+.auth-tabs button {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--text-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-sm);
+  font-weight: 600;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+.auth-tabs button[aria-selected="true"] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--sh-xs);
+}
+
+/* MFA 面板 */
+.mfa-box {
+  border: 1px solid var(--primary-border);
+  background: var(--primary-soft);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+}
+.mfa-steps { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-4); }
+.mfa-steps .step {
+  flex: 1; text-align: center; font-size: var(--fs-xs);
+  color: var(--text-3);
+  padding-top: var(--sp-1);
+  border-top: 3px solid var(--border);
+}
+.mfa-steps .step.active { color: var(--primary); border-top-color: var(--primary); font-weight: 650; }
+.mfa-steps .step.done { color: var(--ok); border-top-color: var(--ok); }
+
+.code-input {
+  display: flex; gap: var(--sp-2); justify-content: space-between;
+}
+.code-input input {
+  width: 100%;
+  text-align: center;
+  font-size: var(--fs-xl);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  padding: var(--sp-3) 0;
+  letter-spacing: 0.04em;
+}
+
+/* 人脸识别模拟框 */
+.face-stage {
+  position: relative;
+  height: 200px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(160deg, var(--surface-3), var(--surface-2));
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  margin-bottom: var(--sp-4);
+}
+.face-oval {
+  width: 116px; height: 148px;
+  border: 2px dashed var(--border-2);
+  border-radius: 50% / 42%;
+  display: grid; place-items: center;
+  font-size: 52px;
+  transition: border-color var(--t-md);
+}
+.face-scanline {
+  position: absolute;
+  left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  box-shadow: 0 0 14px var(--primary);
+  animation: faceScan 1.9s ease-in-out infinite;
+}
+@keyframes faceScan {
+  0%, 100% { top: 16%; opacity: 0.25; }
+  50%      { top: 82%; opacity: 1; }
+}
+.face-stage.scanning .face-oval { border-color: var(--primary); border-style: solid; }
+.face-stage.success .face-oval { border-color: var(--ok); border-style: solid; }
+.face-stage.fail .face-oval { border-color: var(--danger); border-style: solid; }
+
+/* 演示提示条 */
+.demo-tip {
+  margin-top: var(--sp-5);
+  border: 1px dashed var(--primary-border);
+  background: var(--primary-soft);
+  color: var(--text-2);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-sm);
+}
+.demo-tip code {
+  background: var(--surface);
+  border-color: var(--primary-border);
+  color: var(--primary);
+  font-weight: 650;
+}
+
+@media (max-width: 900px) {
+  .auth-screen { grid-template-columns: 1fr; }
+  .auth-brand { display: none; }
+  .auth-panel { padding: var(--sp-6) var(--sp-4); }
+}
+
+/* ==========================================================================
+ * 三、主应用外壳
+ * ========================================================================== */
+.app-shell {
+  flex: 1;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  min-height: 0;
+}
+
+/* ---------------------------- 3.1 侧边导航 ---------------------------- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  min-height: 0;
+  z-index: 30;
+}
+
+.sidebar-head {
+  height: var(--topbar-h);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 0 var(--sp-4);
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-head .logo {
+  /* 图标尺寸跟随顶栏高度自适应。
+     --topbar-h 会随"界面字号"偏好变化（60 / 66 / 74px，见 theme.css），
+     所以用户把字号调大时，图标和文字会一起等比放大，不会显得头重脚轻。
+     想整体调大调小，只改下面这一个系数即可。 */
+  --logo-size: calc(var(--topbar-h) * 0.72);
+  width: var(--logo-size);
+  height: var(--logo-size);
+  flex: none;
+  border-radius: var(--r-sm);
+  background: var(--primary);
+  color: var(--primary-contrast);
+  display: grid; place-items: center;
+  font-size: calc(var(--logo-size) * 0.55);
+  position: relative;
+  overflow: hidden;
+}
+/* 自定义品牌图：把图片放到 ui/assets/brand.png 即可，无需改代码。
+   图片加载失败时 shell.js 会把它移除，露出下面的 emoji 兜底。
+
+   object-fit 用 cover：图片**填满**整个圆角矩形，不留上下左右的空。
+   代价是非正方形图会裁掉溢出的一边（宽图裁左右、高图裁上下）。
+   若你希望整张图完整可见、宁愿留白，把 cover 改成 contain 即可。 */
+.sidebar-head .logo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.sidebar-head .name { font-weight: 700; line-height: 1.2; }
+
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sp-3) var(--sp-2);
+}
+.nav-group { margin-bottom: var(--sp-4); }
+.nav-group > .label {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  padding: 0 var(--sp-3) var(--sp-2);
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-weight: 550;
+  margin-bottom: 2px;
+  transition: background var(--t-fast), color var(--t-fast);
+  position: relative;
+}
+.nav-item:hover { background: var(--surface-3); color: var(--text); text-decoration: none; }
+.nav-item.active {
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 650;
+}
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--sp-2));
+  top: 20%; bottom: 20%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--primary);
+}
+.nav-item .ico { flex: none; width: 20px; text-align: center; font-size: 15px; }
+.nav-item .txt { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nav-item .cnt {
+  flex: none;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+  padding: 0 6px;
+  border-radius: var(--r-pill);
+  background: var(--danger);
+  color: #fff;
+}
+.nav-item .cnt.calm { background: var(--surface-3); color: var(--text-2); }
+
+.sidebar-foot {
+  flex: none;
+  border-top: 1px solid var(--border);
+  padding: var(--sp-3);
+}
+
+/* 侧栏内的用户卡片 */
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2);
+  border-radius: var(--r-md);
+  transition: background var(--t-fast);
+}
+.user-chip:hover { background: var(--surface-3); }
+.avatar {
+  flex: none;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: #fff;
+  background: var(--primary);
+}
+.avatar.lg { width: 48px; height: 48px; font-size: var(--fs-lg); }
+.avatar.sm { width: 26px; height: 26px; font-size: var(--fs-xs); }
+
+/* ---------------------------- 3.2 主区域 ---------------------------- */
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.topbar {
+  height: var(--topbar-h);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 0 var(--sp-5);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 20;
+}
+.topbar .crumb {
+  display: flex; align-items: center; gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  min-width: 0;
+}
+.topbar .crumb .sep { color: var(--text-3); }
+.topbar .crumb .cur { color: var(--text); font-weight: 650; }
+
+.topbar-search {
+  position: relative;
+  flex: 1;
+  max-width: 420px;
+  margin-left: auto;
+}
+.topbar-search input {
+  width: 100%;
+  padding: var(--sp-2) var(--sp-3) var(--sp-2) 36px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  font-size: var(--fs-sm);
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.topbar-search input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: var(--sh-focus);
+  background: var(--surface);
+}
+.topbar-search .ico {
+  position: absolute; left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-3);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.icon-btn {
+  position: relative;
+  flex: none;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-2);
+  font-size: 16px;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+.icon-btn:hover { background: var(--surface-3); color: var(--text); }
+.icon-btn .badge-dot {
+  position: absolute; top: 5px; right: 5px;
+  min-width: 16px; height: 16px;
+  padding: 0 4px;
+  border-radius: var(--r-pill);
+  background: var(--danger);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: grid; place-items: center;
+  border: 2px solid var(--surface);
+}
+
+.menu-toggle { display: none; }
+
+/* 会话倒计时提示 */
+.session-clock {
+  display: flex; align-items: center; gap: 6px;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+  white-space: nowrap;
+}
+.session-clock.warn { background: var(--warn-soft); color: var(--warn); }
+
+/* ---------- 屏保（空闲后隐藏界面，露出整页背景图） ----------
+   由 ui/shell.js 在 :root 上切 .ss-on。界面用 visibility 隐藏而不是
+   display:none —— 保住布局，回来时不用重新排版。
+   屏保层本身透明、不含任何文字，看到的就是 body 的整页背景
+   （ui/assets/background.gif）。 */
+#screensaver { display: none; }
+:root.ss-on .app-shell { visibility: hidden; }
+:root.ss-on #screensaver {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  cursor: pointer;
+}
+
+/* ---------------------------- 3.3 内容区 ---------------------------- */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  scroll-behavior: smooth;
+}
+.content-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-5) var(--sp-10);
+}
+
+/* 页面标题区 */
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5);
+}
+.page-head .titles { flex: 1; min-width: 220px; }
+.page-head h2 { margin-bottom: 2px; letter-spacing: -0.01em; }
+.page-head .desc { color: var(--text-2); font-size: var(--fs-sm); }
+/* 页面标题 / 副标题是直接坐在整页背景图上的（.page-head 没有承托色），
+   不描边的话背景一花就看不清。令牌见 theme.css 的 --text-halo。 */
+.page-head h2,
+.page-head .desc { text-shadow: var(--text-halo); }
+.page-head .actions { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+/* 视图切换动画 */
+.view-enter { animation: viewIn var(--t-slow) both; }
+@keyframes viewIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------------------------- 3.4 响应式 ---------------------------- */
+@media (max-width: 1000px) {
+  .app-shell { grid-template-columns: minmax(0, 1fr); }
+  .sidebar {
+    position: fixed;
+    top: 0; bottom: 0; left: 0;
+    width: 272px;
+    transform: translateX(-100%);
+    transition: transform var(--t-md);
+    box-shadow: var(--sh-lg);
+  }
+  body.nav-open .sidebar { transform: none; }
+  body.nav-open::after {
+    content: "";
+    position: fixed; inset: 0;
+    background: var(--overlay);
+    z-index: 25;
+  }
+  .menu-toggle { display: grid; }
+  .content-inner { padding: var(--sp-5) var(--sp-4) var(--sp-10); }
+  .topbar { padding: 0 var(--sp-3); gap: var(--sp-2); }
+  .topbar-search { max-width: none; }
+  .session-clock { display: none; }
+}
+
+@media (max-width: 640px) {
+  .topbar-search { display: none; }
+  .page-head .actions { width: 100%; }
+}

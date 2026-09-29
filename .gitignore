@@ -1,0 +1,12 @@
+# macOS / editor noise
+.DS_Store
+.AppleDouble
+Thumbs.db
+*.swp
+*.log
+
+# Local runtime data: may contain personal health records and account data.
+data/database.json
+data/database.json.*
+data/server.url
+data/*.tmp

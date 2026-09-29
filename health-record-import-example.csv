@@ -1,0 +1,5 @@
+recordType,measuredAt,reportDate,hospital,itemName,result,metric,value,value2,unit,measureWay,refRange,abnormal,sourceName,context,impression
+vital,2026-09-22 08:00,,,,,systolic,132,86,mmHg,home,,,Community Clinic,Morning resting measurement,
+vital,2026-09-22 08:05,,,,,glucose,6.4,,mmol/L,home,,,Community Clinic,Fasting 8 hours,
+lab,,2026-09-20,hosp_rm,HbA1c,7.1,,,,%,,4.0 - 6.0,true,Municipal First People's Hospital,,Above target; follow-up recommended
+lab,,2026-09-20,hosp_rm,LDL-C,3.6,,,,mmol/L,,< 3.4,true,Municipal First People's Hospital,,Slightly elevated
