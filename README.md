@@ -4,7 +4,7 @@
 
 # 个人健康档案管理系统 · Personal Health Record System
 
-**DI41009 - Industrial Team Project**
+**课程名称 / Course: DI41009 - Industrial Team Project**
 
 **把分散的健康信息，收进一个更清晰、可控的地方。**<br>
 **Bring scattered health information into one clearer, more controllable place.**
@@ -51,7 +51,7 @@ The images below use **built-in fictional demo data** in a fresh browser session
 
 ### 项目简介
 
-个人健康档案管理系统（PHR）是 **DI41009 - Industrial Team Project** 课程中可在本机运行的项目原型。它将体征、检查、诊断、用药、过敏及医院报告等信息整合为可检索、可追溯的个人健康时间线，并提供规则驱动的趋势与异常提示、限时限范围的医生授权，以及中英文界面。
+个人健康档案管理系统（PHR）是课程 **DI41009 - Industrial Team Project** 中可在本机运行的项目原型。它将体征、检查、诊断、用药、过敏及医院报告等信息整合为可检索、可追溯的个人健康时间线，并提供规则驱动的趋势与异常提示、限时限范围的医生授权，以及中英文界面。
 
 项目采用原生 HTML、CSS、JavaScript 构建；无需安装前端依赖或执行构建命令。默认模式将结构化数据保存在浏览器；Windows 上还可选择本地 PowerShell 数据库模式，把结构化数据写入 `data/database.json`。**PDF/JPG/PNG 原始附件单独保存在当前浏览器的 IndexedDB 中，不包含在该 JSON 文件或普通数据备份内。**
 
@@ -131,7 +131,7 @@ python3 -m http.server 4173 --bind 127.0.0.1
 
 ### Overview
 
-Personal Health Record System (PHR) is a local-first prototype developed for **DI41009 - Industrial Team Project**. It brings vital signs, check-ups, diagnoses, medication, allergies, and hospital reports into searchable records and a chronological timeline. The interface includes rule-based insights, scoped and time-limited doctor access, audit trails, and a Chinese/English language switch.
+Personal Health Record System (PHR) is a local-first prototype developed for the course **DI41009 - Industrial Team Project**. It brings vital signs, check-ups, diagnoses, medication, allergies, and hospital reports into searchable records and a chronological timeline. The interface includes rule-based insights, scoped and time-limited doctor access, audit trails, and a Chinese/English language switch.
 
 The application is built with plain HTML, CSS, and JavaScript. There is no package installation or build step. Structured data normally lives in browser storage; an optional **Windows-only** PowerShell server writes it to `data/database.json`. Original PDF/JPG/PNG attachments live **separately in the browser's IndexedDB** and are **not** part of that JSON file or standard data exports.
 
@@ -206,4 +206,4 @@ personal-health-record-system/
 └── docs/screenshots/              # Screenshots made with fictional demo data
 ```
 
-<div align="center"><sub>DI41009 - Industrial Team Project · 课程项目演示原型</sub></div>
+<div align="center"><sub>Course: DI41009 - Industrial Team Project · Project: Personal Health Record System</sub></div>
